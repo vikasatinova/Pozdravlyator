@@ -1,0 +1,44 @@
+﻿@model IQueryable<Birthday>
+
+@{
+    ViewData["Title"] = "Все ДР";
+}
+
+<div class="text-center">
+
+    <div class="div-box">
+        <a class="btn btn-success" asp-controller="Birthdays" asp-action="Edit" asp-route-id="">Добавить день рождение</a>
+    </div>
+
+    <div>
+        <h1>Весь список дней рождений</h1>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="container">
+            <div class="row">
+                @foreach (Birthday entity in Model)
+                {
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <img src="~/images/@entity.photo" class="card-img-top" alt="Фото вашего друга">
+                            <div class="card-body">
+                                <h5 class="card-title">@entity.fio</h5>
+                                <p class="card-text">Дата этого замечательного события:<br>@entity.date.ToShortDateString()</p>
+                                <a class="btn btn-primary" asp-controller="AllBirthdays" asp-action="Edit" asp-route-id="@entity.Id">Редактировать</a>
+
+                                <form style="display: inline-block;" id="form-@entity.Id" asp-controller="AllBirthdays" asp-action="Delete" method="post">
+                                    <input type="hidden" name="id" value="@entity.Id">
+                                    <a class="btn btn-danger" href="#" onclick="document.getElementById('form-@entity.Id').submit();">Удалить</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    
+</div>

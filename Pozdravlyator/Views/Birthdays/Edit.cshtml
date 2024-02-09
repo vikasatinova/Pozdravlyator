@@ -1,0 +1,38 @@
+﻿@model Birthday
+@{
+    string strTitle = "Редактировать запись";
+    ViewBag.Title = strTitle;
+}
+
+
+<div>
+    <h2>@strTitle</h2>
+    <div>
+        <form asp-area="Admin" asp-controller="Birthdays" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="photo" />
+
+            <div asp-validation-summary="All"></div>
+            <div class="div-box">
+                <label asp-for="fio"></label>
+                <input asp-for="fio" />
+                <span asp-validation-for="fio"></span>
+            </div>
+            <div class="div-box">
+                <label asp-for="date"></label>
+                <input asp-for="date" type="date"/>
+                <span asp-validation-for="date"></span>
+            </div>
+
+            <div class="div-box">
+                <label asp-for="photo"></label>
+                <input type="file" name="titleImageFile" id="titleImageFile" />
+                <div>
+                    <img class="img-block" src="~/images/@Model.photo" alt="Тут могло бы быть фото вашего друга"/>
+                </div>
+            </div>
+            
+            <input type="submit" value="Сохранить" />
+        </form>
+    </div>
+</div>
